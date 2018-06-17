@@ -1,34 +1,34 @@
 ******************************************************************************
                   TI ARM Linker PC v18.1.1                     
 ******************************************************************************
->> Linked Sat Jun 16 21:31:16 2018
+>> Linked Sun Jun 17 13:34:22 2018
 
 OUTPUT FILE NAME:   <uart_FFT_csv.out>
-ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 00000ab1
+ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 00000ac5
 
 
 MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  MAIN                  00000000   00040000  00000f6a  0003f096  R  X
+  MAIN                  00000000   00040000  00000f7a  0003f086  R  X
   INFO                  00200000   00004000  00000000  00004000  R  X
-  SRAM_CODE             01000000   00010000  00000709  0000f8f7  RW X
-  SRAM_DATA             20000000   00010000  00000709  0000f8f7  RW  
+  SRAM_CODE             01000000   00010000  00001609  0000e9f7  RW X
+  SRAM_DATA             20000000   00010000  00001609  0000e9f7  RW  
 
 
 SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    00000f70   00000f70    r-x
+00000000    00000000    00000f80   00000f80    r-x
   00000000    00000000    000000e4   000000e4    r-- .intvecs
-  000000e8    000000e8    00000a9a   00000a9a    r-x .text
-  00000b84    00000b84    000003bc   000003bc    r-- .const
-  00000f40    00000f40    00000030   00000030    r-- .cinit
-20000000    20000000    0000050c   00000000    rw-
-  20000000    20000000    00000505   00000000    rw- .bss
-  20000508    20000508    00000004   00000000    rw- .data
+  000000e8    000000e8    00000aaa   00000aaa    r-x .text
+  00000b94    00000b94    000003bc   000003bc    r-- .const
+  00000f50    00000f50    00000030   00000030    r-- .cinit
+20000000    20000000    0000140c   00000000    rw-
+  20000000    20000000    00001405   00000000    rw- .bss
+  20001408    20001408    00000004   00000000    rw- .data
 2000fe00    2000fe00    00000200   00000000    rw-
   2000fe00    2000fe00    00000200   00000000    rw- .stack
 
@@ -41,10 +41,11 @@ section   page    origin      length       input sections
 .intvecs   0    00000000    000000e4     
                   00000000    000000e4     startup_msp432p401r_ccs.obj (.intvecs:retain)
 
-.text      0    000000e8    00000a9a     
+.text      0    000000e8    00000aaa     
                   000000e8    000001d4     uart_FFT_csv.obj (.text:cFFT)
-                  000002bc    000001d4     uart_FFT_csv.obj (.text:main)
-                  00000490    00000108     uart_FFT_csv.obj (.text:cBitReverse3)
+                  000002bc    000001d0     uart_FFT_csv.obj (.text:main)
+                  0000048c    00000108     uart_FFT_csv.obj (.text:cBitReverse3)
+                  00000594    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
                   00000598    000000de     QmathLib_CCS_MSP432.lib : _QNsin_cos.obj (.text:_Q12cos)
                   00000676    00000002     startup_msp432p401r_ccs.obj (.text:Default_Handler)
                   00000678    000000de     QmathLib_CCS_MSP432.lib : _QNsin_cos.obj (.text:_Q12sin)
@@ -55,49 +56,48 @@ section   page    origin      length       input sections
                   00000946    00000002     --HOLE-- [fill = 0]
                   00000948    00000078     system_msp432p401r.obj (.text:SystemInit)
                   000009c0    00000068     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
-                  00000a28    00000044     uart_FFT_csv.obj (.text:EUSCIA0_IRQHandler)
-                  00000a6c    00000044     rtsv7M4_T_le_v4SPD16_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit:__TI_auto_init_nobinit_nopinit)
-                  00000ab0    00000038                                   : boot_cortex_m.c.obj (.text:_c_int00_noargs:_c_int00_noargs)
-                  00000ae8    00000024     msp432p4xx_driverlib.lib : cs_MSP432P4XX.obj (.text:CS_setDCOCenteredFrequency)
-                  00000b0c    00000024                              : uart_MSP432P4XX.obj (.text:UART_transmitData)
-                  00000b30    00000018                              : wdt_a_MSP432P4XX.obj (.text:WDT_A_holdTimer)
-                  00000b48    0000000e     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
-                  00000b56    0000000c     startup_msp432p401r_ccs.obj (.text:Reset_Handler)
-                  00000b62    0000000c     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
-                  00000b6e    00000002     --HOLE-- [fill = 0]
-                  00000b70    0000000a     QmathLib_CCS_MSP432.lib : _QNmpy.obj (.text:_Q12mpy)
-                  00000b7a    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
-                  00000b7e    00000004                                   : exit.c.obj (.text:abort:abort)
+                  00000a28    00000058     uart_FFT_csv.obj (.text:EUSCIA0_IRQHandler)
+                  00000a80    00000044     rtsv7M4_T_le_v4SPD16_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit:__TI_auto_init_nobinit_nopinit)
+                  00000ac4    00000038                                   : boot_cortex_m.c.obj (.text:_c_int00_noargs:_c_int00_noargs)
+                  00000afc    00000024     msp432p4xx_driverlib.lib : cs_MSP432P4XX.obj (.text:CS_setDCOCenteredFrequency)
+                  00000b20    00000024                              : uart_MSP432P4XX.obj (.text:UART_transmitData)
+                  00000b44    00000018                              : wdt_a_MSP432P4XX.obj (.text:WDT_A_holdTimer)
+                  00000b5c    0000000e     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
+                  00000b6a    0000000c     startup_msp432p401r_ccs.obj (.text:Reset_Handler)
+                  00000b76    0000000c     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
+                  00000b82    00000004                                   : exit.c.obj (.text:abort:abort)
+                  00000b86    00000002     --HOLE-- [fill = 0]
+                  00000b88    0000000a     QmathLib_CCS_MSP432.lib : _QNmpy.obj (.text:_Q12mpy)
 
-.const     0    00000b84    000003bc     
-                  00000b84    00000180     QmathLib_CCS_MSP432.lib : _QNtables.obj (.const:_Q16sqrt_coeffs)
-                  00000d04    00000100     uart_FFT_csv.obj (.const:.string:ui8BitRevLUT)
-                  00000e04    0000006c     QmathLib_CCS_MSP432.lib : _QNtables.obj (.const:_QNCosLookup)
-                  00000e70    0000006c                             : _QNtables.obj (.const:_QNSinLookup)
-                  00000edc    00000040                             : _QNtables.obj (.const:_QNCos2Lookup)
-                  00000f1c    00000024     uart_FFT_csv.obj (.const:uartConfig)
+.const     0    00000b94    000003bc     
+                  00000b94    00000180     QmathLib_CCS_MSP432.lib : _QNtables.obj (.const:_Q16sqrt_coeffs)
+                  00000d14    00000100     uart_FFT_csv.obj (.const:.string:ui8BitRevLUT)
+                  00000e14    0000006c     QmathLib_CCS_MSP432.lib : _QNtables.obj (.const:_QNCosLookup)
+                  00000e80    0000006c                             : _QNtables.obj (.const:_QNSinLookup)
+                  00000eec    00000040                             : _QNtables.obj (.const:_QNCos2Lookup)
+                  00000f2c    00000024     uart_FFT_csv.obj (.const:uartConfig)
 
-.cinit     0    00000f40    00000030     
-                  00000f40    0000000c     (__TI_handler_table)
-                  00000f4c    00000004     --HOLE-- [fill = 0]
-                  00000f50    00000008     (.cinit..bss.load) [load image, compression = zero_init]
-                  00000f58    00000007     (.cinit..data.load) [load image, compression = lzss]
-                  00000f5f    00000001     --HOLE-- [fill = 0]
-                  00000f60    00000010     (__TI_cinit_table)
+.cinit     0    00000f50    00000030     
+                  00000f50    0000000c     (__TI_handler_table)
+                  00000f5c    00000004     --HOLE-- [fill = 0]
+                  00000f60    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  00000f68    00000007     (.cinit..data.load) [load image, compression = lzss]
+                  00000f6f    00000001     --HOLE-- [fill = 0]
+                  00000f70    00000010     (__TI_cinit_table)
 
 .init_array 
 *          0    00000000    00000000     UNINITIALIZED
 
 .binit     0    00000000    00000000     
 
-.bss       0    20000000    00000505     UNINITIALIZED
-                  20000000    00000400     (.common:qInput)
-                  20000400    00000100     (.common:qMag)
-                  20000500    00000004     (.common:information_bytes)
-                  20000504    00000001     (.common:msg)
+.bss       0    20000000    00001405     UNINITIALIZED
+                  20000000    00001000     (.common:qInput)
+                  20001000    00000400     (.common:qMag)
+                  20001400    00000004     (.common:information_bytes)
+                  20001404    00000001     (.common:msg)
 
-.data      0    20000508    00000004     UNINITIALIZED
-                  20000508    00000004     uart_FFT_csv.obj (.data)
+.data      0    20001408    00000004     UNINITIALIZED
+                  20001408    00000004     uart_FFT_csv.obj (.data)
 
 .stack     0    2000fe00    00000200     UNINITIALIZED
                   2000fe00    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.stack)
@@ -108,10 +108,10 @@ MODULE SUMMARY
        Module                        code   ro data   rw data
        ------                        ----   -------   -------
     .\
-       uart_FFT_csv.obj              1268   292       2578   
+       uart_FFT_csv.obj              1284   292       10258  
        system_msp432p401r.obj        120    0         0      
     +--+-----------------------------+------+---------+---------+
-       Total:                        1388   292       2578   
+       Total:                        1404   292       10258  
                                                              
     .\ccs\
        startup_msp432p401r_ccs.obj   14     228       0      
@@ -149,19 +149,19 @@ MODULE SUMMARY
        Stack:                        0      0         1024   
        Linker Generated:             0      43        0      
     +--+-----------------------------+------+---------+---------+
-       Grand Total:                  2708   1227      3602   
+       Grand Total:                  2724   1227      11282  
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 00000f60 records: 2, size/record: 8, table size: 16
-	.bss: load addr=00000f50, load size=00000008 bytes, run addr=20000000, run size=00000505 bytes, compression=zero_init
-	.data: load addr=00000f58, load size=00000007 bytes, run addr=20000508, run size=00000004 bytes, compression=lzss
+__TI_cinit_table @ 00000f70 records: 2, size/record: 8, table size: 16
+	.bss: load addr=00000f60, load size=00000008 bytes, run addr=20000000, run size=00001405 bytes, compression=zero_init
+	.data: load addr=00000f68, load size=00000007 bytes, run addr=20001408, run size=00000004 bytes, compression=lzss
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 00000f40 records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 00000f50 records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_decompress_lzss
 	index: 1, handler: __TI_decompress_none
 	index: 2, handler: __TI_zero_init
@@ -174,11 +174,11 @@ address   name
 00000677  ADC14_IRQHandler              
 00000677  AES256_IRQHandler             
 00000677  BusFault_Handler              
-00000b7f  C$$EXIT                       
+00000b83  C$$EXIT                       
 00000677  COMP_E0_IRQHandler            
 00000677  COMP_E1_IRQHandler            
 00000677  CS_IRQHandler                 
-00000ae9  CS_setDCOCenteredFrequency    
+00000afd  CS_setDCOCenteredFrequency    
 00000677  DMA_ERR_IRQHandler            
 00000677  DMA_INT0_IRQHandler           
 00000677  DMA_INT1_IRQHandler           
@@ -210,7 +210,7 @@ address   name
 00000677  PSS_IRQHandler                
 00000677  PendSV_Handler                
 00000677  RTC_C_IRQHandler              
-00000b57  Reset_Handler                 
+00000b6b  Reset_Handler                 
 00000677  SVC_Handler                   
 00000677  SysTick_Handler               
 00000949  SystemInit                    
@@ -225,33 +225,33 @@ address   name
 00000677  TA2_N_IRQHandler              
 00000677  TA3_0_IRQHandler              
 00000677  TA3_N_IRQHandler              
-00000b0d  UART_transmitData             
+00000b21  UART_transmitData             
 00000677  UsageFault_Handler            
 4000480c  WDTCTL_SYM                    
 00000677  WDT_A_IRQHandler              
-00000b31  WDT_A_holdTimer               
+00000b45  WDT_A_holdTimer               
 00000599  _Q12cos                       
-00000b71  _Q12mpy                       
+00000b89  _Q12mpy                       
 00000679  _Q12sin                       
-00000b84  _Q16sqrt_coeffs               
-00000edc  _QNCos2Lookup                 
-00000e04  _QNCosLookup                  
-00000e70  _QNSinLookup                  
+00000b94  _Q16sqrt_coeffs               
+00000eec  _QNCos2Lookup                 
+00000e14  _QNCosLookup                  
+00000e80  _QNSinLookup                  
 00000759  _Qmag                         
 20010000  __STACK_END                   
 00000200  __STACK_SIZE                  
-00000f60  __TI_CINIT_Base               
-00000f70  __TI_CINIT_Limit              
-00000f40  __TI_Handler_Table_Base       
-00000f4c  __TI_Handler_Table_Limit      
-00000a6d  __TI_auto_init_nobinit_nopinit
+00000f70  __TI_CINIT_Base               
+00000f80  __TI_CINIT_Limit              
+00000f50  __TI_Handler_Table_Base       
+00000f5c  __TI_Handler_Table_Limit      
+00000a81  __TI_auto_init_nobinit_nopinit
 000009c1  __TI_decompress_lzss          
-00000b49  __TI_decompress_none          
+00000b5d  __TI_decompress_none          
 ffffffff  __TI_pprof_out_hndl           
 ffffffff  __TI_prof_data_size           
 ffffffff  __TI_prof_data_start          
 00000000  __TI_static_base__            
-00000b63  __TI_zero_init                
+00000b77  __TI_zero_init                
 000008cd  __aeabi_memclr                
 000008cd  __aeabi_memclr4               
 000008cd  __aeabi_memclr8               
@@ -265,24 +265,24 @@ ffffffff  __binit__
 ffffffff  __c_args__                    
 UNDEFED   __mpu_init                    
 2000fe00  __stack                       
-00000ab1  _c_int00_noargs               
+00000ac5  _c_int00_noargs               
 UNDEFED   _system_post_cinit            
-00000b7b  _system_pre_init              
-00000b7f  abort                         
+00000595  _system_pre_init              
+00000b83  abort                         
 ffffffff  binit                         
-20000508  bytes                         
-00000491  cBitReverse3                  
+20001408  bytes                         
+0000048d  cBitReverse3                  
 000000e9  cFFT                          
-20000500  information_bytes             
+20001400  information_bytes             
 00000000  interruptVectors              
 000002bd  main                          
 00000831  memcpy                        
 000008d5  memset                        
-20000504  msg                           
+20001404  msg                           
 20000000  qInput                        
-20000400  qMag                          
-00000f1c  uartConfig                    
-00000d04  ui8BitRevLUT                  
+20001000  qMag                          
+00000f2c  uartConfig                    
+00000d14  ui8BitRevLUT                  
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -294,7 +294,8 @@ address   name
 000000e9  cFFT                          
 00000200  __STACK_SIZE                  
 000002bd  main                          
-00000491  cBitReverse3                  
+0000048d  cBitReverse3                  
+00000595  _system_pre_init              
 00000599  _Q12cos                       
 00000677  ADC14_IRQHandler              
 00000677  AES256_IRQHandler             
@@ -363,33 +364,32 @@ address   name
 000009c1  __TI_decompress_lzss          
 00000a29  EUSCIA0_IRQHandler            
 00000a29  EUSCIA0_IRQHandler            
-00000a6d  __TI_auto_init_nobinit_nopinit
-00000ab1  _c_int00_noargs               
-00000ae9  CS_setDCOCenteredFrequency    
-00000b0d  UART_transmitData             
-00000b31  WDT_A_holdTimer               
-00000b49  __TI_decompress_none          
-00000b57  Reset_Handler                 
-00000b63  __TI_zero_init                
-00000b71  _Q12mpy                       
-00000b7b  _system_pre_init              
-00000b7f  C$$EXIT                       
-00000b7f  abort                         
-00000b84  _Q16sqrt_coeffs               
-00000d04  ui8BitRevLUT                  
-00000e04  _QNCosLookup                  
-00000e70  _QNSinLookup                  
-00000edc  _QNCos2Lookup                 
-00000f1c  uartConfig                    
-00000f40  __TI_Handler_Table_Base       
-00000f4c  __TI_Handler_Table_Limit      
-00000f60  __TI_CINIT_Base               
-00000f70  __TI_CINIT_Limit              
+00000a81  __TI_auto_init_nobinit_nopinit
+00000ac5  _c_int00_noargs               
+00000afd  CS_setDCOCenteredFrequency    
+00000b21  UART_transmitData             
+00000b45  WDT_A_holdTimer               
+00000b5d  __TI_decompress_none          
+00000b6b  Reset_Handler                 
+00000b77  __TI_zero_init                
+00000b83  C$$EXIT                       
+00000b83  abort                         
+00000b89  _Q12mpy                       
+00000b94  _Q16sqrt_coeffs               
+00000d14  ui8BitRevLUT                  
+00000e14  _QNCosLookup                  
+00000e80  _QNSinLookup                  
+00000eec  _QNCos2Lookup                 
+00000f2c  uartConfig                    
+00000f50  __TI_Handler_Table_Base       
+00000f5c  __TI_Handler_Table_Limit      
+00000f70  __TI_CINIT_Base               
+00000f80  __TI_CINIT_Limit              
 20000000  qInput                        
-20000400  qMag                          
-20000500  information_bytes             
-20000504  msg                           
-20000508  bytes                         
+20001000  qMag                          
+20001400  information_bytes             
+20001404  msg                           
+20001408  bytes                         
 2000fe00  __stack                       
 20010000  __STACK_END                   
 4000480c  WDTCTL_SYM                    

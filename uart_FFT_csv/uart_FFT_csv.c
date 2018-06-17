@@ -71,55 +71,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-/*void RGB(char color)
-{
-    if (color == 'R')
-    {
-        GPIO_setOutputHighOnPin(
-                    GPIO_PORT_P2,
-                    GPIO_PIN0
-                    );
-        GPIO_setOutputLowOnPin(
-                    GPIO_PORT_P2,
-                    GPIO_PIN1
-                    );
-        GPIO_setOutputLowOnPin(
-                    GPIO_PORT_P2,
-                    GPIO_PIN2
-                    );
-    }
-    else if (color == 'G')
-    {
-        GPIO_setOutputLowOnPin(
-                    GPIO_PORT_P2,
-                    GPIO_PIN0
-                    );
-        GPIO_setOutputHighOnPin(
-                    GPIO_PORT_P2,
-                    GPIO_PIN1
-                    );
-        GPIO_setOutputLowOnPin(
-                    GPIO_PORT_P2,
-                    GPIO_PIN2
-                    );
-    }
-    else if (color == 'B')
-    {
-        GPIO_setOutputLowOnPin(
-                    GPIO_PORT_P2,
-                    GPIO_PIN0
-                    );
-        GPIO_setOutputLowOnPin(
-                    GPIO_PORT_P2,
-                    GPIO_PIN1
-                    );
-        GPIO_setOutputHighOnPin(
-                    GPIO_PORT_P2,
-                    GPIO_PIN2
-                    );
-    }
-}*/
-
 //![Simple UART Config]
 /* UART Configuration Parameter. These are the configuration parameters to
  * make the eUSCI A UART module to operate with a 9600 baud rate. These
@@ -149,12 +100,14 @@ const eUSCI_UART_Config uartConfig =
  #include <ti/iqmathlib/IQmathLib.h>
 
  /* Specify the sample size and sample frequency. */
- #define SAMPLES         256              // power of 2 no larger than 256
+ #define SAMPLES         1024              // power of 2 no larger than 256
  #define SAMPLE_FREQ     8192            // no larger than 16384
 
  /* Access the real and imaginary parts of an index into a complex array. */
  #define RE(x)           (((x)<<1)+0)    // access real part of index
  #define IM(x)           (((x)<<1)+1)    // access imaginary part of index
+
+#define POINTER_CALC(x) ((x & 0xFFFE)<<1) + (x & 0x01) //Pointer address to input data into real bytes of input
 
  /*
   * Input and result buffers. These can be viewed in memory or printed by
@@ -162,38 +115,10 @@ const eUSCI_UART_Config uartConfig =
   */
  _q qInput[SAMPLES*2];                   // Input buffer of complex values
  _q qMag[SAMPLES/2];                     // Magnitude of each frequency result
- _q qPhase[SAMPLES/2];                   // Phase of each frequency result
 
  /* Misc. definitions. */
  #define PI      3.1415926536
 
- /* Structure that describes a single wave to be used to construct the signal */
- typedef struct wave {
-     int16_t     frequency;              // Frequency in Hz
-     _q          amplitude;              // Amplitude of the signal
-     _q          phase;                  // Phase angle in radians
- } wave;
-
- /*
-  * Specify wave structures that will be used to construct the input signal to
-  * the complex FFT function.
-  */
- const wave signals[] = {
- /*   Frequency (Hz)     Magnitude       Phase angle (radians) */
-     {128,               _Q(0.5),        _Q(PI/2)},
-     {512,               _Q(2.0),        _Q(0)},
-     {2048,              _Q(1.333),      _Q(-PI/2)}
- };
-
- /* Calculate the number of wave structures that have been provided. */
- #define NUM_WAVES       (sizeof(signals)/sizeof(wave))
-
- #define ALLOW_PRINTF                    // allow usage of printf to print results
- #ifdef ALLOW_PRINTF
-     char cMagBuffer[10];                // Character buffer for printing magnitude
-     char cPhaseBuffer[10];              // Character buffer for printing phase
-     char cFrequencyBuffer[10];          // Character buffer for printing frequency
- #endif
 
  extern void cFFT(_q *input, int16_t n);
 
@@ -234,38 +159,17 @@ int main(void)
     // Stop watchdog timer
     WDT_A_hold(WDT_A_BASE);
 
-    // Set P1.0 to output direction
-    /*GPIO_setAsOutputPin(
-        GPIO_PORT_P1,
-        GPIO_PIN0
-        );
+    const int rcvMessageSize = SAMPLES;//Size of received message array
+    const int sndMessageSize = SAMPLES/2;//Size of sending message array
 
-    //RED LED
-    GPIO_setAsOutputPin(
-            GPIO_PORT_P2,
-            GPIO_PIN0
-            );
+    //information_bytes = (char*)&information;
+    information_bytes = (char*)&qInput;
 
-    //GREEN LED
-    GPIO_setAsOutputPin(
-            GPIO_PORT_P2,
-            GPIO_PIN1
-            );
-
-    //BLUE LED
-    GPIO_setAsOutputPin(
-            GPIO_PORT_P2,
-            GPIO_PIN2
-            );
-    */
-
-    const int rcvMessageSize = 256;//Size of received message array
-    const int sndMessageSize = 128;//Size of sending message array
-
-    int16_t information[rcvMessageSize];
-    //char *information_bytes;
-
-    information_bytes = (char*)&information;
+    //Initialise values array
+    for (i = 0; i < SAMPLES; i++) {
+        qInput[RE(i)] = 0;
+        qInput[IM(i)] = 0;
+    }
 
     while(1)
     {
@@ -283,29 +187,18 @@ int main(void)
 
         /* Construct the input signal from the wave structures. */
         //Initialise values array
-        for (i = 0; i < SAMPLES; i++) {
+        /*for (i = 0; i < SAMPLES; i++) {
             qInput[RE(i)] = 0;
             qInput[IM(i)] = 0;
-            /*for (j = 0; j < NUM_WAVES; j++) {
-
-                 * input[RE] += cos(angle)*amplitude
-                 * angle += 2*pi*freq/sample_freq
-
-                qInput[RE(i)] += _Qmpy(_Qcos(qWaveCurrentAngle[j]), signals[j].amplitude);
-                qWaveCurrentAngle[j] += _Qmpy(_Q(2*PI), _Qdiv(signals[j].frequency, SAMPLE_FREQ));
-                if (qWaveCurrentAngle[j] > _Q(PI)) {
-                    qWaveCurrentAngle[j] -= _Q(2*PI);
-                }
-            }*/
-        }
+        }*/
 
         if (bytes == 2*rcvMessageSize)
         {
             //Place input values into qInput
-            for (i = 0; i < SAMPLES; i++)
+            /*for (i = 0; i < SAMPLES; i++)
             {
-                qInput[RE(i)] = information[i];
-            }
+                //qInput[RE(i)] = information[i];
+            }*/
 
             /*
              * Perform a complex FFT on the input samples. The result is calculated
@@ -330,6 +223,12 @@ int main(void)
             }
 
             bytes = 0;
+
+            //Initialise values array
+            for (i = 0; i < SAMPLES; i++) {
+                qInput[RE(i)] = 0;
+                qInput[IM(i)] = 0;
+            }
 
             i = 1;
 
@@ -360,7 +259,8 @@ void EUSCIA0_IRQHandler(void)
 //      asm(" nop");
         //UCA0TXBUF = UCA0RXBUF;
         msg = UCA0RXBUF;
-        information_bytes[bytes] = msg;
+        //information_bytes[bytes] = msg;
+        information_bytes[POINTER_CALC(bytes)] = msg;
         bytes++;
 
         //UART_transmitData(EUSCI_A0_BASE, color);
