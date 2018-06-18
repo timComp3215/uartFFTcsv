@@ -106,7 +106,7 @@ const eUSCI_UART_Config uartConfig =
  #include <ti/iqmathlib/IQmathLib.h>
 
  /* Specify the sample size and sample frequency. */
- #define SAMPLES         128          // power of 2 no larger than 256
+ #define SAMPLES         256          // power of 2 no larger than 256
  #define SAMPLE_FREQ     8192            // no larger than 16384
 
  /* Access the real and imaginary parts of an index into a complex array. */
@@ -178,10 +178,10 @@ int main(void)
         qInput[IM(i)] = 0;
     }
 
-    size_t buflen = sizeof(kiss_fft_cpx)*SAMPLES;
+    //size_t buflen = sizeof(kiss_fft_cpx)*SAMPLES;
 
-    kiss_fft_scalar  *in = (kiss_fft_scalar*)malloc(buflen/2);
-    kiss_fft_cpx  *out = (kiss_fft_cpx*)malloc(buflen);
+    kiss_fft_scalar  in[SAMPLES];
+    kiss_fft_cpx  out[SAMPLES];
     kiss_fftr_cfg  kiss_fftr_state;
     kiss_fftr_state = kiss_fftr_alloc(SAMPLES,0,0,0);
 
@@ -290,10 +290,6 @@ void cFFT(_q *input, int16_t n)
 
             for (j = i; j < n; j += s) {
                 /* Multiply complex pairs and scale each stage. */
-                if (((j+s_2) == 112) | (j == 112))
-                {
-                    int problem = 1;
-                }
                 qTempR = _Qmpy(qTCos, input[RE(j+s_2)]) - _Qmpy(qTSin, input[IM(j+s_2)]);
                 qTempI = _Qmpy(qTSin, input[RE(j+s_2)]) + _Qmpy(qTCos, input[IM(j+s_2)]);
                 input[RE(j+s_2)] = _Qdiv2(input[RE(j)] - qTempR);
