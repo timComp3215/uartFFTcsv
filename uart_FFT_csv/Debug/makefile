@@ -131,34 +131,34 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-uart_FFT_csv.out \
+uart_FFT_kissFFT.out \
 
 EXE_OUTPUTS__QUOTED += \
-"uart_FFT_csv.out" \
+"uart_FFT_kissFFT.out" \
 
 BIN_OUTPUTS += \
-uart_FFT_csv.hex \
+uart_FFT_kissFFT.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"uart_FFT_csv.hex" \
+"uart_FFT_kissFFT.hex" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "uart_FFT_csv.out"
+	@$(MAKE) --no-print-directory -Onone "uart_FFT_kissFFT.out"
 
 # Tool invocations
-uart_FFT_csv.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+uart_FFT_kissFFT.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=none --define=__MSP432P401R__ --define=DeviceFamily_MSP432P401x -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"uart_FFT_csv.map" --stack_size=512 -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/lib" -i"C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="uart_FFT_csv_linkInfo.xml" --rom_model -o "uart_FFT_csv.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=none --define=__MSP432P401R__ --define=DeviceFamily_MSP432P401x -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"uart_FFT_kissFFT.map" --stack_size=512 -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/lib" -i"C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="uart_FFT_kissFFT_linkInfo.xml" --rom_model -o "uart_FFT_kissFFT.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-uart_FFT_csv.hex: $(EXE_OUTPUTS)
+uart_FFT_kissFFT.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: ARM Hex Utility'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex"  -o "uart_FFT_csv.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex"  -o "uart_FFT_kissFFT.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 

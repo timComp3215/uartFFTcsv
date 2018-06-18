@@ -95,12 +95,18 @@ const eUSCI_UART_Config uartConfig =
  /* Select the global Q value */
  #define GLOBAL_Q    12
 
+/* Select FIXED point option for kissFFT */
+#define FIXED_POINT 16
+
+#include "kissFFT/kiss_fftr.h"
+#include "kissFFT/kiss_fft_guts.h"
+
  /* Include the iqmathlib header files */
  #include <ti/iqmathlib/QmathLib.h>
  #include <ti/iqmathlib/IQmathLib.h>
 
  /* Specify the sample size and sample frequency. */
- #define SAMPLES         64          // power of 2 no larger than 256
+ #define SAMPLES         128          // power of 2 no larger than 256
  #define SAMPLE_FREQ     8192            // no larger than 16384
 
  /* Access the real and imaginary parts of an index into a complex array. */
@@ -114,7 +120,8 @@ const eUSCI_UART_Config uartConfig =
   * defining ALLOW_PRINTF.
   */
  _q qInput[SAMPLES*2];                   // Input buffer of complex values
- _q qMag[SAMPLES/2];                     // Magnitude of each frequency result
+ //_q qMag[SAMPLES/2];                     // Magnitude of each frequency result
+
 
  /* Misc. definitions. */
  #define PI      3.1415926536
@@ -171,6 +178,13 @@ int main(void)
         qInput[IM(i)] = 0;
     }
 
+    size_t buflen = sizeof(kiss_fft_cpx)*SAMPLES;
+
+    kiss_fft_scalar  *in = (kiss_fft_scalar*)malloc(buflen/2);
+    kiss_fft_cpx  *out = (kiss_fft_cpx*)malloc(buflen);
+    kiss_fftr_cfg  kiss_fftr_state;
+    kiss_fftr_state = kiss_fftr_alloc(SAMPLES,0,0,0);
+
     while(1)
     {
         int16_t i;
@@ -184,19 +198,28 @@ int main(void)
              * Perform a complex FFT on the input samples. The result is calculated
              * in-place and will be stored in the input buffer.
              */
-            cFFT(qInput, SAMPLES);
+            //cFFT(qInput, SAMPLES);
+
+
+            for (i=0; i<SAMPLES; i++)
+            {
+                in[i] = qInput[RE(i)];
+            }
+
+            kiss_fftr(kiss_fftr_state,in,out);
 
             /* Calculate the magnitude and phase angle of the results. */
             for (i = 0; i < SAMPLES/2; i++) {
-                qMag[i] = _Qmag(qInput[RE(i)], qInput[IM(i)]);
+                //qMag[i] = _Qmag(qInput[RE(i)], qInput[IM(i)]);
+                in[i] = _Qmag(out[i].r, out[i].i);
             }
 
             //Transmit
             int sendMsgCount;
             for (sendMsgCount = 0; sendMsgCount < sndMessageSize; sendMsgCount++)
             {
-                UART_transmitData(EUSCI_A0_BASE, (qMag[sendMsgCount]%256));
-                UART_transmitData(EUSCI_A0_BASE, (qMag[sendMsgCount]/256));
+                UART_transmitData(EUSCI_A0_BASE, (in[sendMsgCount]%256));
+                UART_transmitData(EUSCI_A0_BASE, (in[sendMsgCount]/256));
                 //UART_transmitData(EUSCI_A0_BASE, '\n');
             }
 

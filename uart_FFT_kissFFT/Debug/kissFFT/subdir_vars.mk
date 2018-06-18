@@ -5,31 +5,28 @@
 SHELL = cmd.exe
 
 # Add inputs and outputs from these tool invocations to the build variables 
-CMD_SRCS += \
-../msp432p401r.cmd 
-
 C_SRCS += \
-../system_msp432p401r.c \
-../uart_FFT_kissFFT.c 
+../kissFFT/kiss_fft.c \
+../kissFFT/kiss_fftr.c 
 
 C_DEPS += \
-./system_msp432p401r.d \
-./uart_FFT_kissFFT.d 
+./kissFFT/kiss_fft.d \
+./kissFFT/kiss_fftr.d 
 
 OBJS += \
-./system_msp432p401r.obj \
-./uart_FFT_kissFFT.obj 
+./kissFFT/kiss_fft.obj \
+./kissFFT/kiss_fftr.obj 
 
 OBJS__QUOTED += \
-"system_msp432p401r.obj" \
-"uart_FFT_kissFFT.obj" 
+"kissFFT\kiss_fft.obj" \
+"kissFFT\kiss_fftr.obj" 
 
 C_DEPS__QUOTED += \
-"system_msp432p401r.d" \
-"uart_FFT_kissFFT.d" 
+"kissFFT\kiss_fft.d" \
+"kissFFT\kiss_fftr.d" 
 
 C_SRCS__QUOTED += \
-"../system_msp432p401r.c" \
-"../uart_FFT_kissFFT.c" 
+"../kissFFT/kiss_fft.c" \
+"../kissFFT/kiss_fftr.c" 
 
 

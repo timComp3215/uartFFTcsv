@@ -11,8 +11,10 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./system_msp432p401r.obj" \
-"./uart_FFT_csv.obj" \
+"./uart_FFT_kissFFT.obj" \
 "./ccs/startup_msp432p401r_ccs.obj" \
+"./kissFFT/kiss_fft.obj" \
+"./kissFFT/kiss_fftr.obj" \
 "../msp432p401r.cmd" \
 $(GEN_CMDS__FLAG) \
 -l"ti/display/lib/display.aem4f" \
@@ -33,8 +35,10 @@ RMDIR := RMDIR /S/Q
 -include sources.mk
 -include subdir_vars.mk
 -include ccs/subdir_vars.mk
+-include kissFFT/subdir_vars.mk
 -include subdir_rules.mk
 -include ccs/subdir_rules.mk
+-include kissFFT/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -131,42 +135,42 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-uart_FFT_kissFFT.out \
+uart_FFT_csv.out \
 
 EXE_OUTPUTS__QUOTED += \
-"uart_FFT_kissFFT.out" \
+"uart_FFT_csv.out" \
 
 BIN_OUTPUTS += \
-uart_FFT_kissFFT.hex \
+uart_FFT_csv.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"uart_FFT_kissFFT.hex" \
+"uart_FFT_csv.hex" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "uart_FFT_kissFFT.out"
+	@$(MAKE) --no-print-directory -Onone "uart_FFT_csv.out"
 
 # Tool invocations
-uart_FFT_kissFFT.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+uart_FFT_csv.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=none --define=__MSP432P401R__ --define=DeviceFamily_MSP432P401x -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"uart_FFT_kissFFT.map" --stack_size=512 -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/lib" -i"C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="uart_FFT_kissFFT_linkInfo.xml" --rom_model -o "uart_FFT_kissFFT.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=none --define=__MSP432P401R__ --define=DeviceFamily_MSP432P401x -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"uart_FFT_csv.map" --stack_size=512 -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/lib" -i"C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="uart_FFT_csv_linkInfo.xml" --rom_model -o "uart_FFT_csv.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-uart_FFT_kissFFT.hex: $(EXE_OUTPUTS)
+uart_FFT_csv.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: ARM Hex Utility'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex"  -o "uart_FFT_kissFFT.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex"  -o "uart_FFT_csv.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "system_msp432p401r.obj" "uart_FFT_csv.obj" "ccs\startup_msp432p401r_ccs.obj" 
-	-$(RM) "system_msp432p401r.d" "uart_FFT_csv.d" "ccs\startup_msp432p401r_ccs.d" 
+	-$(RM) "system_msp432p401r.obj" "uart_FFT_kissFFT.obj" "ccs\startup_msp432p401r_ccs.obj" "kissFFT\kiss_fft.obj" "kissFFT\kiss_fftr.obj" 
+	-$(RM) "system_msp432p401r.d" "uart_FFT_kissFFT.d" "ccs\startup_msp432p401r_ccs.d" "kissFFT\kiss_fft.d" "kissFFT\kiss_fftr.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
