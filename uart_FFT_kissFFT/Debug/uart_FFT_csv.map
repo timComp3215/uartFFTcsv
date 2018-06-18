@@ -1,0 +1,387 @@
+******************************************************************************
+                  TI ARM Linker PC v18.1.1                     
+******************************************************************************
+>> Linked Mon Jun 18 14:45:29 2018
+
+OUTPUT FILE NAME:   <uart_FFT_csv.out>
+ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 00000a59
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  MAIN                  00000000   00040000  00000f16  0003f0ea  R  X
+  INFO                  00200000   00004000  00000000  00004000  R  X
+  SRAM_CODE             01000000   00010000  00000349  0000fcb7  RW X
+  SRAM_DATA             20000000   00010000  00000349  0000fcb7  RW  
+
+
+SEGMENT ALLOCATION MAP
+
+run origin  load origin   length   init length attrs members
+----------  ----------- ---------- ----------- ----- -------
+00000000    00000000    00000f20   00000f20    r-x
+  00000000    00000000    000000e4   000000e4    r-- .intvecs
+  000000e8    000000e8    00000a46   00000a46    r-x .text
+  00000b30    00000b30    000003bc   000003bc    r-- .const
+  00000ef0    00000ef0    00000030   00000030    r-- .cinit
+20000000    20000000    0000014c   00000000    rw-
+  20000000    20000000    00000145   00000000    rw- .bss
+  20000148    20000148    00000004   00000000    rw- .data
+2000fe00    2000fe00    00000200   00000000    rw-
+  2000fe00    2000fe00    00000200   00000000    rw- .stack
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.intvecs   0    00000000    000000e4     
+                  00000000    000000e4     startup_msp432p401r_ccs.obj (.intvecs:retain)
+
+.text      0    000000e8    00000a46     
+                  000000e8    000001fc     uart_FFT_csv.obj (.text:cFFT)
+                  000002e4    000001bc     uart_FFT_csv.obj (.text:main)
+                  000004a0    00000108     uart_FFT_csv.obj (.text:cBitReverse3)
+                  000005a8    000000de     QmathLib_CCS_MSP432.lib : _QNsin_cos.obj (.text:_Q12cos)
+                  00000686    00000002     startup_msp432p401r_ccs.obj (.text:Default_Handler)
+                  00000688    000000de     QmathLib_CCS_MSP432.lib : _QNsin_cos.obj (.text:_Q12sin)
+                  00000766    00000002     --HOLE-- [fill = 0]
+                  00000768    000000d8                             : _QNsqrt.obj (.text:_Qmag)
+                  00000840    0000009c     rtsv7M4_T_le_v4SPD16_eabi.lib : memcpy_t2.asm.obj (.text)
+                  000008dc    00000078     system_msp432p401r.obj (.text:SystemInit)
+                  00000954    00000068     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
+                  000009bc    00000058     uart_FFT_csv.obj (.text:EUSCIA0_IRQHandler)
+                  00000a14    00000044     rtsv7M4_T_le_v4SPD16_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit:__TI_auto_init_nobinit_nopinit)
+                  00000a58    00000038                                   : boot_cortex_m.c.obj (.text:_c_int00_noargs:_c_int00_noargs)
+                  00000a90    00000024     msp432p4xx_driverlib.lib : cs_MSP432P4XX.obj (.text:CS_setDCOCenteredFrequency)
+                  00000ab4    00000024                              : uart_MSP432P4XX.obj (.text:UART_transmitData)
+                  00000ad8    00000018                              : wdt_a_MSP432P4XX.obj (.text:WDT_A_holdTimer)
+                  00000af0    00000012     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset:__TI_zero_init_nomemset)
+                  00000b02    0000000e                                   : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
+                  00000b10    0000000c     startup_msp432p401r_ccs.obj (.text:Reset_Handler)
+                  00000b1c    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
+                  00000b20    0000000a     QmathLib_CCS_MSP432.lib : _QNmpy.obj (.text:_Q12mpy)
+                  00000b2a    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : exit.c.obj (.text:abort:abort)
+
+.const     0    00000b30    000003bc     
+                  00000b30    00000180     QmathLib_CCS_MSP432.lib : _QNtables.obj (.const:_Q16sqrt_coeffs)
+                  00000cb0    00000100     uart_FFT_csv.obj (.const:.string:ui8BitRevLUT)
+                  00000db0    0000006c     QmathLib_CCS_MSP432.lib : _QNtables.obj (.const:_QNCosLookup)
+                  00000e1c    0000006c                             : _QNtables.obj (.const:_QNSinLookup)
+                  00000e88    00000040                             : _QNtables.obj (.const:_QNCos2Lookup)
+                  00000ec8    00000024     uart_FFT_csv.obj (.const:uartConfig)
+
+.cinit     0    00000ef0    00000030     
+                  00000ef0    0000000c     (__TI_handler_table)
+                  00000efc    00000004     --HOLE-- [fill = 0]
+                  00000f00    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  00000f08    00000007     (.cinit..data.load) [load image, compression = lzss]
+                  00000f0f    00000001     --HOLE-- [fill = 0]
+                  00000f10    00000010     (__TI_cinit_table)
+
+.init_array 
+*          0    00000000    00000000     UNINITIALIZED
+
+.binit     0    00000000    00000000     
+
+.bss       0    20000000    00000145     UNINITIALIZED
+                  20000000    00000100     (.common:qInput)
+                  20000100    00000040     (.common:qMag)
+                  20000140    00000004     (.common:information_bytes)
+                  20000144    00000001     (.common:msg)
+
+.data      0    20000148    00000004     UNINITIALIZED
+                  20000148    00000004     uart_FFT_csv.obj (.data)
+
+.stack     0    2000fe00    00000200     UNINITIALIZED
+                  2000fe00    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.stack)
+                  2000fe04    000001fc     --HOLE--
+
+MODULE SUMMARY
+
+       Module                        code   ro data   rw data
+       ------                        ----   -------   -------
+    .\
+       uart_FFT_csv.obj              1304   292       658    
+       system_msp432p401r.obj        120    0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        1424   292       658    
+                                                             
+    .\ccs\
+       startup_msp432p401r_ccs.obj   14     228       0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        14     228       0      
+                                                             
+    C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/ccs/msp432p4xx_driverlib.lib
+       cs_MSP432P4XX.obj             36     0         0      
+       uart_MSP432P4XX.obj           36     0         0      
+       wdt_a_MSP432P4XX.obj          24     0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        96     0         0      
+                                                             
+    C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/iqmathlib/ccs/QmathLib_CCS_MSP432.lib
+       _QNtables.obj                 0      664       0      
+       _QNsin_cos.obj                444    0         0      
+       _QNsqrt.obj                   216    0         0      
+       _QNmpy.obj                    10     0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        670    664       0      
+                                                             
+    C:\ti\ccsv8\tools\compiler\ti-cgt-arm_18.1.1.LTS\lib\rtsv7M4_T_le_v4SPD16_eabi.lib
+       memcpy_t2.asm.obj             156    0         0      
+       copy_decompress_lzss.c.obj    104    0         0      
+       autoinit.c.obj                68     0         0      
+       boot_cortex_m.c.obj           56     0         0      
+       copy_zero_init.c.obj          18     0         0      
+       copy_decompress_none.c.obj    14     0         0      
+       exit.c.obj                    4      0         0      
+       pre_init.c.obj                4      0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        424    0         0      
+                                                             
+       Stack:                        0      0         1024   
+       Linker Generated:             0      43        0      
+    +--+-----------------------------+------+---------+---------+
+       Grand Total:                  2628   1227      1682   
+
+
+LINKER GENERATED COPY TABLES
+
+__TI_cinit_table @ 00000f10 records: 2, size/record: 8, table size: 16
+	.bss: load addr=00000f00, load size=00000008 bytes, run addr=20000000, run size=00000145 bytes, compression=zero_init
+	.data: load addr=00000f08, load size=00000007 bytes, run addr=20000148, run size=00000004 bytes, compression=lzss
+
+
+LINKER GENERATED HANDLER TABLE
+
+__TI_handler_table @ 00000ef0 records: 3, size/record: 4, table size: 12
+	index: 0, handler: __TI_decompress_lzss
+	index: 1, handler: __TI_decompress_none
+	index: 2, handler: __TI_zero_init
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address   name                          
+-------   ----                          
+00000687  ADC14_IRQHandler              
+00000687  AES256_IRQHandler             
+00000687  BusFault_Handler              
+00000b2b  C$$EXIT                       
+00000687  COMP_E0_IRQHandler            
+00000687  COMP_E1_IRQHandler            
+00000687  CS_IRQHandler                 
+00000a91  CS_setDCOCenteredFrequency    
+00000687  DMA_ERR_IRQHandler            
+00000687  DMA_INT0_IRQHandler           
+00000687  DMA_INT1_IRQHandler           
+00000687  DMA_INT2_IRQHandler           
+00000687  DMA_INT3_IRQHandler           
+00000687  DebugMon_Handler              
+00000687  Default_Handler               
+000009bd  EUSCIA0_IRQHandler            
+000009bd  EUSCIA0_IRQHandler            
+00000687  EUSCIA1_IRQHandler            
+00000687  EUSCIA2_IRQHandler            
+00000687  EUSCIA3_IRQHandler            
+00000687  EUSCIB0_IRQHandler            
+00000687  EUSCIB1_IRQHandler            
+00000687  EUSCIB2_IRQHandler            
+00000687  EUSCIB3_IRQHandler            
+00000687  FLCTL_IRQHandler              
+00000687  FPU_IRQHandler                
+00000687  HardFault_Handler             
+00000687  MemManage_Handler             
+00000687  NMI_Handler                   
+00000687  PCM_IRQHandler                
+00000687  PORT1_IRQHandler              
+00000687  PORT2_IRQHandler              
+00000687  PORT3_IRQHandler              
+00000687  PORT4_IRQHandler              
+00000687  PORT5_IRQHandler              
+00000687  PORT6_IRQHandler              
+00000687  PSS_IRQHandler                
+00000687  PendSV_Handler                
+00000687  RTC_C_IRQHandler              
+00000b11  Reset_Handler                 
+00000687  SVC_Handler                   
+00000687  SysTick_Handler               
+000008dd  SystemInit                    
+00000687  T32_INT1_IRQHandler           
+00000687  T32_INT2_IRQHandler           
+00000687  T32_INTC_IRQHandler           
+00000687  TA0_0_IRQHandler              
+00000687  TA0_N_IRQHandler              
+00000687  TA1_0_IRQHandler              
+00000687  TA1_N_IRQHandler              
+00000687  TA2_0_IRQHandler              
+00000687  TA2_N_IRQHandler              
+00000687  TA3_0_IRQHandler              
+00000687  TA3_N_IRQHandler              
+00000ab5  UART_transmitData             
+00000687  UsageFault_Handler            
+4000480c  WDTCTL_SYM                    
+00000687  WDT_A_IRQHandler              
+00000ad9  WDT_A_holdTimer               
+000005a9  _Q12cos                       
+00000b21  _Q12mpy                       
+00000689  _Q12sin                       
+00000b30  _Q16sqrt_coeffs               
+00000e88  _QNCos2Lookup                 
+00000db0  _QNCosLookup                  
+00000e1c  _QNSinLookup                  
+00000769  _Qmag                         
+20010000  __STACK_END                   
+00000200  __STACK_SIZE                  
+00000f10  __TI_CINIT_Base               
+00000f20  __TI_CINIT_Limit              
+00000ef0  __TI_Handler_Table_Base       
+00000efc  __TI_Handler_Table_Limit      
+00000a15  __TI_auto_init_nobinit_nopinit
+00000955  __TI_decompress_lzss          
+00000b03  __TI_decompress_none          
+ffffffff  __TI_pprof_out_hndl           
+ffffffff  __TI_prof_data_size           
+ffffffff  __TI_prof_data_start          
+00000000  __TI_static_base__            
+00000af1  __TI_zero_init_nomemset       
+00000841  __aeabi_memcpy                
+00000841  __aeabi_memcpy4               
+00000841  __aeabi_memcpy8               
+ffffffff  __binit__                     
+ffffffff  __c_args__                    
+UNDEFED   __mpu_init                    
+2000fe00  __stack                       
+00000a59  _c_int00_noargs               
+UNDEFED   _system_post_cinit            
+00000b1d  _system_pre_init              
+00000b2b  abort                         
+ffffffff  binit                         
+20000148  bytes                         
+000004a1  cBitReverse3                  
+000000e9  cFFT                          
+20000140  information_bytes             
+00000000  interruptVectors              
+000002e5  main                          
+00000841  memcpy                        
+20000144  msg                           
+20000000  qInput                        
+20000100  qMag                          
+00000ec8  uartConfig                    
+00000cb0  ui8BitRevLUT                  
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address   name                          
+-------   ----                          
+00000000  __TI_static_base__            
+00000000  interruptVectors              
+000000e9  cFFT                          
+00000200  __STACK_SIZE                  
+000002e5  main                          
+000004a1  cBitReverse3                  
+000005a9  _Q12cos                       
+00000687  ADC14_IRQHandler              
+00000687  AES256_IRQHandler             
+00000687  BusFault_Handler              
+00000687  COMP_E0_IRQHandler            
+00000687  COMP_E1_IRQHandler            
+00000687  CS_IRQHandler                 
+00000687  DMA_ERR_IRQHandler            
+00000687  DMA_INT0_IRQHandler           
+00000687  DMA_INT1_IRQHandler           
+00000687  DMA_INT2_IRQHandler           
+00000687  DMA_INT3_IRQHandler           
+00000687  DebugMon_Handler              
+00000687  Default_Handler               
+00000687  EUSCIA1_IRQHandler            
+00000687  EUSCIA2_IRQHandler            
+00000687  EUSCIA3_IRQHandler            
+00000687  EUSCIB0_IRQHandler            
+00000687  EUSCIB1_IRQHandler            
+00000687  EUSCIB2_IRQHandler            
+00000687  EUSCIB3_IRQHandler            
+00000687  FLCTL_IRQHandler              
+00000687  FPU_IRQHandler                
+00000687  HardFault_Handler             
+00000687  MemManage_Handler             
+00000687  NMI_Handler                   
+00000687  PCM_IRQHandler                
+00000687  PORT1_IRQHandler              
+00000687  PORT2_IRQHandler              
+00000687  PORT3_IRQHandler              
+00000687  PORT4_IRQHandler              
+00000687  PORT5_IRQHandler              
+00000687  PORT6_IRQHandler              
+00000687  PSS_IRQHandler                
+00000687  PendSV_Handler                
+00000687  RTC_C_IRQHandler              
+00000687  SVC_Handler                   
+00000687  SysTick_Handler               
+00000687  T32_INT1_IRQHandler           
+00000687  T32_INT2_IRQHandler           
+00000687  T32_INTC_IRQHandler           
+00000687  TA0_0_IRQHandler              
+00000687  TA0_N_IRQHandler              
+00000687  TA1_0_IRQHandler              
+00000687  TA1_N_IRQHandler              
+00000687  TA2_0_IRQHandler              
+00000687  TA2_N_IRQHandler              
+00000687  TA3_0_IRQHandler              
+00000687  TA3_N_IRQHandler              
+00000687  UsageFault_Handler            
+00000687  WDT_A_IRQHandler              
+00000689  _Q12sin                       
+00000769  _Qmag                         
+00000841  __aeabi_memcpy                
+00000841  __aeabi_memcpy4               
+00000841  __aeabi_memcpy8               
+00000841  memcpy                        
+000008dd  SystemInit                    
+00000955  __TI_decompress_lzss          
+000009bd  EUSCIA0_IRQHandler            
+000009bd  EUSCIA0_IRQHandler            
+00000a15  __TI_auto_init_nobinit_nopinit
+00000a59  _c_int00_noargs               
+00000a91  CS_setDCOCenteredFrequency    
+00000ab5  UART_transmitData             
+00000ad9  WDT_A_holdTimer               
+00000af1  __TI_zero_init_nomemset       
+00000b03  __TI_decompress_none          
+00000b11  Reset_Handler                 
+00000b1d  _system_pre_init              
+00000b21  _Q12mpy                       
+00000b2b  C$$EXIT                       
+00000b2b  abort                         
+00000b30  _Q16sqrt_coeffs               
+00000cb0  ui8BitRevLUT                  
+00000db0  _QNCosLookup                  
+00000e1c  _QNSinLookup                  
+00000e88  _QNCos2Lookup                 
+00000ec8  uartConfig                    
+00000ef0  __TI_Handler_Table_Base       
+00000efc  __TI_Handler_Table_Limit      
+00000f10  __TI_CINIT_Base               
+00000f20  __TI_CINIT_Limit              
+20000000  qInput                        
+20000100  qMag                          
+20000140  information_bytes             
+20000144  msg                           
+20000148  bytes                         
+2000fe00  __stack                       
+20010000  __STACK_END                   
+4000480c  WDTCTL_SYM                    
+ffffffff  __TI_pprof_out_hndl           
+ffffffff  __TI_prof_data_size           
+ffffffff  __TI_prof_data_start          
+ffffffff  __binit__                     
+ffffffff  __c_args__                    
+ffffffff  binit                         
+UNDEFED   __mpu_init                    
+UNDEFED   _system_post_cinit            
+
+[105 symbols]
