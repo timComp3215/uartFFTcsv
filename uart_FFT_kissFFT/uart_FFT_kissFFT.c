@@ -106,7 +106,7 @@ const eUSCI_UART_Config uartConfig =
  #include <ti/iqmathlib/IQmathLib.h>
 
  /* Specify the sample size and sample frequency. */
- #define SAMPLES         256          // power of 2 no larger than 256
+ #define SAMPLES         1024          // power of 2 no larger than 256
  #define SAMPLE_FREQ     8192            // no larger than 16384
 
 volatile int bytes = 0;
